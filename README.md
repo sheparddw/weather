@@ -1,5 +1,7 @@
 A super simple weather app that uses the user's specified city and api key to display current conditions.
 
+Get your Open Weather API Key after signing up here: openweathermap.org
+
 ## Available Scripts
 
 In the project directory, you can run:
