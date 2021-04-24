@@ -1,26 +1,31 @@
+body {
+  padding: 20px;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+.icon {
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  .icon {
   }
 }
 
 .App-header {
-  background-color: #fff;
-  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  margin-top: 5rem;
+}
+
+h1, h2 {
+  font-weight: 300;
 }
 
 label {
@@ -29,7 +34,10 @@ label {
 
 .report {
 	margin-top: 1em;
-	font-size: 50px;
+	font-size: 1em;
+	max-width: 500px;
+	margin: auto;
+	text-align: left;
 }
 
 .App-link {
