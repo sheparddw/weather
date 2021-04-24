@@ -77,14 +77,15 @@ class App extends Component {
 		const weather = this.state.forecastData?.properties?.periods?.[0];
 		// Only shows if weather is available anyway.
 		const report = `${weather?.name}: ${weather?.detailedForecast}`;
-		const image = weather?.icon || cloud;
+		const image = weather?.icon;
 
 		return (
 			<div className="App">
 				<Link to="/settings">Settings</Link>
 				<header className="App-header">
-				<img src={image} className="icon" alt="logo" />
-					
+				{ image && (
+					<img src={image} className="icon" alt="logo" />
+				)}
 				</header>
 				{ city && (
 					<div className="city">
@@ -95,9 +96,6 @@ class App extends Component {
 					<div className="report">
 						{ report }
 					</div>
-				)}
-				{ ! weather?.icon && (
-					<div className="attributions">Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 				)}
 			</div>
 		);
