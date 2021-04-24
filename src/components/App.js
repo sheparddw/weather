@@ -101,8 +101,10 @@ class App extends Component {
 	}
 
 	render() {
+		let basename = '/weather';
+
 		return (
-			<Router>
+			<Router basename={ basename }>
 				<Switch>
 					<Route path="/settings">
 						<Settings
