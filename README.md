@@ -2,11 +2,13 @@ A super simple weather app that uses the user's specified coordinates to display
 
 To see this in action go to [https://sheparddw.github.io/weather/](https://sheparddw.github.io/weather/) 
 
-## Available Scripts
+
+
+#### Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
