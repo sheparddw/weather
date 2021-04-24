@@ -15,27 +15,36 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 
+		// Use localStorage data if available. Otherwise default to Portland.
+		const coordinates = window.localStorage.getItem('coordinates') || '45.5051,-122.6750';
+
 		this.state = {
-			city: 'portland',
-			apidata: false,
+			coordinates,
+			overviewData: false,
+			forecastData: false,
 		}
 	}
 
 	componentDidMount() {
+		this.getForecast();
 	}
 
 	componentDidUpdate() {
-		console.log(this.state.apidata)
+	}
+
+	getForecast() {
+		// Use the user's coordinates from the Settings page if available.
+		const { coordinates } = this.state;
+		// Gets the overview api data then runs another call for the forecast.
+		this.callApi(`https://api.weather.gov/points/${coordinates}`, 'overviewData').then(
+			data => this.callApi(this.state.overviewData?.properties?.forecast, 'forecastData')
+		);
 	}
 
 	// Get weather data via the openweather API.
-	callApi() {
+	callApi( url, stateItemName ) {
 		const api = new Api();
 		const headers = [];
-		// Use the user's selection of apiKey and City.
-		const { coordinates } = this.state;
-		const url = `https://api.weather.gov/points/${coordinates}`
-
 		return (
 			api
 				.get( url, headers )
@@ -43,33 +52,31 @@ class App extends Component {
 					// If status is 200-299.
 					if ( data.ok ) {
 						return data.json().then( ( jsonData ) => 
-							this.setState({ apidata: jsonData })
+							this.setState({ [stateItemName]: jsonData })
 						);
 					}
 				})
 		);
 	}
 
+	// Whenever settings change, update the API data.
 	handleSettingsChange( childState ) {
-		const { coordinates } = childState;
-		return this.setState({ coordinates }, () => {
-			this.refreshApi();
-		})
+		const coordinates = childState?.coordinates;
+		// Make sure the value is valid.
+		if ( coordinates ) {
+			return this.setState({ coordinates }, () => {
+				this.getForecast();
+			})
+		}
 	}
 
-	refreshApi() {
-		// Avoid duplicate requests being made by clearing previous calls.
-		clearTimeout( this.check );
-
-		return ( this.check = setTimeout( () => {
-			this.callApi();
-		}, 600 ) );
-	}
-
+	// The forecast UI.
 	app() {
-		const weather = this.state.apidata;
+		const overview = this.state.overviewData;
+		const city = overview?.properties?.relativeLocation?.properties?.city;
+		const weather = this.state.forecastData?.properties?.periods?.[0];
 		// Only shows if weather is available anyway.
-		const report = `It's ${weather?.main?.temp} degrees in ${weather?.name}!`;
+		const report = `${weather?.name}: ${weather?.detailedForecast}`;
 
 		return (
 			<div className="App">
@@ -78,11 +85,15 @@ class App extends Component {
 				<img src={cloud} className="App-logo" alt="logo" />
 					
 				</header>
-				<div className="input">
-					<label htmlFor="city">City</label>
-				</div>
+				{ city && (
+					<div className="input">
+						<p>{city}</p>
+					</div>
+				)}
 				{ weather && (
-					<div className="report">{ report }</div>
+					<div className="report">
+						{ report }
+					</div>
 				)}
 				<div className="attributions">Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 			</div>
@@ -94,7 +105,10 @@ class App extends Component {
 			<Router>
 				<Switch>
 					<Route path="/settings">
-						<Settings onSettingsChange={ () => this.onSettingsChange() }/>
+						<Settings
+							handleSettingsChange={ this.handleSettingsChange.bind(this) }
+							coordinates={this.state.coordinates}
+						/>
 					</Route>
 					<Route path="/">
 						{ this.app() }
