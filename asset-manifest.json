@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.ceea32ec.chunk.css",
-    "main.js": "/static/js/main.32f988f2.chunk.js",
-    "main.js.map": "/static/js/main.32f988f2.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.5afc0bab.js",
-    "runtime-main.js.map": "/static/js/runtime-main.5afc0bab.js.map",
-    "static/js/2.c3063a2d.chunk.js": "/static/js/2.c3063a2d.chunk.js",
-    "static/js/2.c3063a2d.chunk.js.map": "/static/js/2.c3063a2d.chunk.js.map",
-    "static/js/3.dac50568.chunk.js": "/static/js/3.dac50568.chunk.js",
-    "static/js/3.dac50568.chunk.js.map": "/static/js/3.dac50568.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.ceea32ec.chunk.css.map": "/static/css/main.ceea32ec.chunk.css.map",
-    "static/js/2.c3063a2d.chunk.js.LICENSE.txt": "/static/js/2.c3063a2d.chunk.js.LICENSE.txt",
-    "static/media/cloud.06df75af.svg": "/static/media/cloud.06df75af.svg"
+    "main.css": "/weather/static/css/main.ceea32ec.chunk.css",
+    "main.js": "/weather/static/js/main.32f988f2.chunk.js",
+    "main.js.map": "/weather/static/js/main.32f988f2.chunk.js.map",
+    "runtime-main.js": "/weather/static/js/runtime-main.5823d7ac.js",
+    "runtime-main.js.map": "/weather/static/js/runtime-main.5823d7ac.js.map",
+    "static/js/2.c3063a2d.chunk.js": "/weather/static/js/2.c3063a2d.chunk.js",
+    "static/js/2.c3063a2d.chunk.js.map": "/weather/static/js/2.c3063a2d.chunk.js.map",
+    "static/js/3.dac50568.chunk.js": "/weather/static/js/3.dac50568.chunk.js",
+    "static/js/3.dac50568.chunk.js.map": "/weather/static/js/3.dac50568.chunk.js.map",
+    "index.html": "/weather/index.html",
+    "static/css/main.ceea32ec.chunk.css.map": "/weather/static/css/main.ceea32ec.chunk.css.map",
+    "static/js/2.c3063a2d.chunk.js.LICENSE.txt": "/weather/static/js/2.c3063a2d.chunk.js.LICENSE.txt",
+    "static/media/cloud.06df75af.svg": "/weather/static/media/cloud.06df75af.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.5afc0bab.js",
+    "static/js/runtime-main.5823d7ac.js",
     "static/js/2.c3063a2d.chunk.js",
     "static/css/main.ceea32ec.chunk.css",
     "static/js/main.32f988f2.chunk.js"
