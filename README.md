@@ -1,5 +1,7 @@
 A super simple weather app that uses the user's specified coordinates to display a basic weather forecast based upon the noaa.gov weather API.
 
+To see this in action go to [https://sheparddw.github.io/weather/](https://sheparddw.github.io/weather/) 
+
 ## Available Scripts
 
 In the project directory, you can run:
