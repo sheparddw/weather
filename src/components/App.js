@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-import Api from './helpers/api';
-import cloud from './assets/cloud.svg';
+import Api from '../helpers/api';
+import cloud from '../assets/cloud.svg';
+import Settings from './Settings/Settings';
 import './App.css';
 
 class App extends Component {
@@ -17,13 +24,17 @@ class App extends Component {
 	componentDidMount() {
 	}
 
+	componentDidUpdate() {
+		console.log(this.state.apidata)
+	}
+
 	// Get weather data via the openweather API.
 	callApi() {
 		const api = new Api();
 		const headers = [];
 		// Use the user's selection of apiKey and City.
-		const { city, apiKey } = this.state;
-		const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
+		const { coordinates } = this.state;
+		const url = `https://api.weather.gov/points/${coordinates}`
 
 		return (
 			api
@@ -39,7 +50,14 @@ class App extends Component {
 		);
 	}
 
-	handleChange(e) {
+	handleSettingsChange( childState ) {
+		const { coordinates } = childState;
+		return this.setState({ coordinates }, () => {
+			this.refreshApi();
+		})
+	}
+
+	refreshApi() {
 		// Avoid duplicate requests being made by clearing previous calls.
 		clearTimeout( this.check );
 
@@ -48,44 +66,20 @@ class App extends Component {
 		}, 600 ) );
 	}
 
-	render() {
+	app() {
 		const weather = this.state.apidata;
 		// Only shows if weather is available anyway.
 		const report = `It's ${weather?.main?.temp} degrees in ${weather?.name}!`;
 
 		return (
 			<div className="App">
+				<Link to="/settings">Settings</Link>
 				<header className="App-header">
 				<img src={cloud} className="App-logo" alt="logo" />
 					
 				</header>
 				<div className="input">
-					<label htmlFor="apikey">API Key</label>
-					<input
-						id="apikey"
-						onChange={
-							(e) => {
-								const apiKey = e.target.value;
-								this.setState({ apiKey }, () => {
-									this.handleChange(e);
-								})
-							}
-						}
-					/>
-				</div>
-				<div className="input">
 					<label htmlFor="city">City</label>
-					<input
-						id="city"
-						onChange={
-							(e) => {
-								const city = e.target.value;
-								this.setState({ city }, () => {
-									this.handleChange(e);
-								})
-							}
-						}
-					/>
 				</div>
 				{ weather && (
 					<div className="report">{ report }</div>
@@ -93,6 +87,21 @@ class App extends Component {
 				<div className="attributions">Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 			</div>
 		);
+	}
+
+	render() {
+		return (
+			<Router>
+				<Switch>
+					<Route path="/settings">
+						<Settings onSettingsChange={ () => this.onSettingsChange() }/>
+					</Route>
+					<Route path="/">
+						{ this.app() }
+					</Route>
+        		</Switch>
+			</Router>
+		)
 	}
 }
 
