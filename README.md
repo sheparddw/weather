@@ -1,6 +1,4 @@
-A super simple weather app that uses the user's specified city and api key to display current conditions.
-
-Get your Open Weather API Key after signing up here: openweathermap.org
+A super simple weather app that uses the user's specified coordinates to display a basic weather forecast based upon the noaa.gov weather API.
 
 ## Available Scripts
 
